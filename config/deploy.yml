@@ -31,6 +31,7 @@ env:
   secret:
 
 traefik:
+  host_port: 8080
   options:
     publish:
       - "80:80"
