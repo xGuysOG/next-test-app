@@ -1,4 +1,4 @@
-service: OutscaleKamal
+service: outscaleKamal
 image: xGuysOG/next-test-app/master
 registry:
   server: ghcr.io
