@@ -31,9 +31,16 @@ env:
   secret:
 
 traefik:
-  host_port: 8080
   options:
     publish:
-      - "8080:8080"
+      # Do not add 80:80, as it added by default
+      - "443:443"
+    volume:
+      - "/tmp/acme.json:/tmp/acme.json"
   args:
-    entryPoints.web.address: ":8080"
+    entryPoints.web.address: ":80"
+    entryPoints.websecure.address: ":443"
+    certificatesResolvers.letsencrypt.acme.email: "xguys.net@gmail.com"
+    certificatesResolvers.letsencrypt.acme.storage: "/tmp/acme.json"
+    certificatesResolvers.letsencrypt.acme.httpchallenge: true
+    certificatesResolvers.letsencrypt.acme.httpchallenge.entrypoint: web
