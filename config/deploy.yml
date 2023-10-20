@@ -1,0 +1,36 @@
+registry:
+  server: ghcr.io
+  username: xGuysOG
+  password: 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
+builder:
+  multiarch: false
+image: xGuysOG/next-test-app/main
+service: OutscaleKamal
+servers:
+  web:
+    # Our VPS host
+    hosts: 
+      - 10.100.0.128
+    # Labels for traefik to automatically issue SSL cert
+    labels:
+      traefik.http.routers.web.rule: Host(`10.100.0.128`)
+      traefik.http.routers.web_secure.entrypoints: websecure
+      traefik.http.routers.web_secure.rule: Host(`10.100.0.128`)
+      traefik.http.routers.web_secure.tls: true
+      traefik.http.routers.web_secure.tls.certresolver: letsencrypt
+    options:
+      "add-host": "host.docker.internal:host-gateway"
+# Your health check endpoint
+healthcheck:
+  path: /api/health
+# Visible and secret environment vars to give to container
+env:
+  clear:
+  secret:
+
+traefik:
+  options:
+    publish:
+      - "80:80"
+  args:
+    entryPoints.web.address: ":80"
