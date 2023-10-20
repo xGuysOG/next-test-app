@@ -1,11 +1,11 @@
+service: OutscaleKamal
+image: xGuysOG/next-test-app/main
 registry:
   server: ghcr.io
   username: xGuysOG
   password: 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
 builder:
   multiarch: false
-image: xGuysOG/next-test-app/main
-service: OutscaleKamal
 servers:
   web:
     # Our VPS host
