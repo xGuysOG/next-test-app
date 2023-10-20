@@ -1,5 +1,5 @@
 service: outscalekamal
-image: xGuysOG/next-test-app/master
+image: xguysog/next-test-app/master
 registry:
   server: ghcr.io
   username: xGuysOG
