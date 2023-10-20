@@ -6,6 +6,8 @@ registry:
   password: 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
 builder:
   multiarch: false
+ssh:
+  user: outscale
 servers:
   web:
     # Our VPS host
