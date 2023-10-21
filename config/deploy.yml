@@ -3,7 +3,8 @@ image: xguysog/next-test-app/master
 registry:
   server: ghcr.io
   username: xGuysOG
-  password: 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
+  password: 
+    - GHCR_TOKEN
 builder:
   multiarch: false
 ssh:
@@ -12,12 +13,12 @@ servers:
   web:
     # Our VPS host
     hosts: 
-      - 10.100.0.128
+      - 64.226.98.2
     # Labels for traefik to automatically issue SSL cert
     labels:
-      traefik.http.routers.web.rule: Host(`10.100.0.128`)
+      traefik.http.routers.web.rule: Host(`kamaltest.duckdns.org`)
       traefik.http.routers.web_secure.entrypoints: websecure
-      traefik.http.routers.web_secure.rule: Host(`10.100.0.128`)
+      traefik.http.routers.web_secure.rule: Host(`kamaltest.duckdns.org`)
       traefik.http.routers.web_secure.tls: true
       traefik.http.routers.web_secure.tls.certresolver: letsencrypt
     options:
