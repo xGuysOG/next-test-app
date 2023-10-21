@@ -1,0 +1,47 @@
+service: outscalekamal
+image: xguysog/next-test-app/master
+registry:
+  server: ghcr.io
+  username: xGuysOG
+  password: 
+    - GHCR_TOKEN
+builder:
+  multiarch: false
+ssh:
+  user: root
+servers:
+  web:
+    # Our VPS host
+    hosts: 
+      - 104.248.240.50
+    # Labels for traefik to automatically issue SSL cert
+    labels:
+      traefik.http.routers.web.rule: Host(`kamaltest.duckdns.org`)
+      traefik.http.routers.web_secure.entrypoints: websecure
+      traefik.http.routers.web_secure.rule: Host(`kamaltest.duckdns.org`)
+      traefik.http.routers.web_secure.tls: true
+      traefik.http.routers.web_secure.tls.certresolver: letsencrypt
+    options:
+      "add-host": "host.docker.internal:host-gateway"
+# Your health check endpoint
+healthcheck:
+  path: /api/health
+# Visible and secret environment vars to give to container
+env:
+  clear:
+  secret:
+
+traefik:
+  options:
+    publish:
+      # Do not add 80:80, as it added by default
+      - "443:443"
+    volume:
+      - "/tmp/acme.json:/tmp/acme.json"
+  args:
+    entryPoints.web.address: ":80"
+    entryPoints.websecure.address: ":443"
+    certificatesResolvers.letsencrypt.acme.email: "xguys.net@gmail.com"
+    certificatesResolvers.letsencrypt.acme.storage: "/tmp/acme.json"
+    certificatesResolvers.letsencrypt.acme.httpchallenge: true
+    certificatesResolvers.letsencrypt.acme.httpchallenge.entrypoint: web
