@@ -13,7 +13,7 @@ servers:
   web:
     # Our VPS host
     hosts: 
-      - 104.248.240.50
+      - 157.230.100.116
     # Labels for traefik to automatically issue SSL cert
     labels:
       traefik.http.routers.web.rule: Host(`kamaltest.duckdns.org`)
