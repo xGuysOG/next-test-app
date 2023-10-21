@@ -8,12 +8,12 @@ registry:
 builder:
   multiarch: false
 ssh:
-  user: outscale
+  user: root
 servers:
   web:
     # Our VPS host
     hosts: 
-      - 64.226.98.2
+      - 104.248.240.50
     # Labels for traefik to automatically issue SSL cert
     labels:
       traefik.http.routers.web.rule: Host(`kamaltest.duckdns.org`)
